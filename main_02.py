@@ -20,6 +20,6 @@ async def admin_html(request : Request): # 파일 호출
 # bakery.html
 @app.get("/bakery_html") 
 async def bakery_html(request : Request): 
-    return templates.TemplateResponse("bakery.html", {"request" : request}
+    return templates.TemplateResponse("bakery.html", {"request" : request})
                                       
 pass

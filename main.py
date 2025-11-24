@@ -30,11 +30,18 @@ from fastapi.templating import Jinja2Templates # fast api 템플릿 사용
 from fastapi import Request # 외부 요청이기 때문에 파라미터로 들어감.
 templates = Jinja2Templates(directory="templates/") # 클래스 변수(함수 담는 값) = Jinja 템플릿 html경로 설정
 
-# http://localhost:8000/main_html
-@app.get("/main_html") # 네트워크용 함수 호출
-async def main_html(request : Request): # 파일 호출
-    return templates.TemplateResponse("main.html"   
-                                      , {"request" : request}) # html 파일 자체가 호출됨.
+# http://localhost:8000/main_html_comtect
+@app.get("/main_html_context") # 네트워크용 함수 호출
+async def main_html_context(request : Request): # 파일 호출
+        # 템플릿에 전달할 데이터
+    context = {
+        "request": request,
+        "title": "FastAPI + Jinja Example",
+        "items": ["Apple", "Banana", "Cherry"],
+        "user": {"name": "Sanghun", "age": 33}
+    }
+    return templates.TemplateResponse("main_context.html"   
+                                      , context) # html 파일 자체가 호출됨.
 
 # 정적 파일 설정
 from fastapi.staticfiles import StaticFiles
