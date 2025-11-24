@@ -47,7 +47,7 @@ async def bakery_html(request : Request):
     return templates.TemplateResponse("toyproject_fastapis/bakery.html", {"request" : request})
 
 # http://localhost:8000/main_html_context
-@app.get("toyproject_fastapis/main_html_context") # 네트워크용 함수 호출
+@app.get("/toyproject_fastapis/main_html_context") # 네트워크용 함수 호출
 async def main_html_context(request : Request): # 파일 호출
     # 템플릿에 전달할 데이터
     context = {
@@ -56,8 +56,7 @@ async def main_html_context(request : Request): # 파일 호출
         "items": ["Apple", "Banana", "Cherry"],
         "user": {"name": "Sanghun", "age": 33}
     }
-    return templates.TemplateResponse("main_context.html"   
-                                      , context) # html 파일 자체가 호출됨.
+    return templates.TemplateResponse("main_context.html", context) # html 파일 자체가 호출됨.
 
 # http://localhost:8000/users/list
 @app.get("/users/list")
@@ -82,7 +81,9 @@ async def quest_10_jina2(request: Request):
 
 # 정적 파일 설정
 from fastapi.staticfiles import StaticFiles
+# http://localhost:8000/images/temp.jpg
 app.mount("/images", StaticFiles(directory="resources/images"))
+# http://localhost:8000/css/commons.css
 app.mount("/css", StaticFiles(directory="resources/css"))
 
 pass

@@ -9,6 +9,10 @@
     <div>title : {{ title }}</div>
     <div>items : {{ items }}</div>
     <div>{{ items }}</div>
+    <!--
+    for 문은 테이블 행(<tr>)을 백엔드에서 받은 사용자 데이터의 개수만큼 자동으로 생성하고,
+    각 행에 해당 사용자의 정보를 채워 넣는 데 사용되는 핵심 도구
+    -->
     {% for item in items : %}
     <div>{{ item }}</div>
     {% endfor %}

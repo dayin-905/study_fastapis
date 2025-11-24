@@ -13,13 +13,16 @@
             <th>age</th>
             <th>city</th>
         </tr>
+        <!-- html문법 중 table에서 list와 for문의 사용 -->
         {% for user in user_list %}
         <tr>
+            <!-- list의 string과 값을 구분하는 표시. {{ @ }} -->
             <td> {{ user.name }}</td>
             <td> {{ user.age }}</td>
             <td> {{ user.city }}</td>
         </tr>
-        {% endfor %}      
+        {% endfor %}
+        <!-- endfor로 마지막을 지정해줘야만 오류 없이 가능함. -->      
     </table>
 </body>
 </html>
