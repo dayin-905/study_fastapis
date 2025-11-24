@@ -4,7 +4,7 @@ app = FastAPI()
 
 from fastapi.templating import Jinja2Templates # fast api 템플릿 사용
 from fastapi import Request # 외부 요청이기 때문에 파라미터로 들어감.
-templates = Jinja2Templates(directory="templates/") # 클래스 변수(함수 담는 값) = Jinja 템플릿 html경로 설정
+templates = Jinja2Templates(directory="toyprojects_fastapis/") # 클래스 변수(함수 담는 값) = Jinja 템플릿 html경로 설정
 
 # index.html
 @app.get("/") 
@@ -21,5 +21,9 @@ async def admin_html(request : Request): # 파일 호출
 @app.get("/bakery_html") 
 async def bakery_html(request : Request): 
     return templates.TemplateResponse("bakery.html", {"request" : request})
+
+# 정적 파일 설정
+from fastapi.staticfiles import StaticFiles
+app.mount("/images", StaticFiles(directory="resources/images"))
 
 pass
