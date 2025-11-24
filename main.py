@@ -8,18 +8,18 @@ templates = Jinja2Templates(directory="templates/") # 클래스 변수(함수 �
 
 # index.html
 @app.get("/") 
-async def main_html(request : Request): 
+async def index_html(request : Request): 
     return templates.TemplateResponse("index.html", {"request" : request})
 
 # admin.html
 @app.get("/admin_html") # 네트워크용 함수 호출
-async def main_html(request : Request): # 파일 호출
+async def admin_html(request : Request): # 파일 호출
     return templates.TemplateResponse("admin.html", {"request" : request}) # html 파일 자체가 호출됨.
 
 # http://localhost:8000/bakey_html
 # bakery.html
 @app.get("/bakery_html") 
-async def main_html(request : Request): 
+async def bakery_html(request : Request): 
     return templates.TemplateResponse("bakery.html", {"request" : request})
 
 pass
