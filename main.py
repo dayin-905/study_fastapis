@@ -31,18 +31,18 @@ from fastapi import Request # 외부 요청이기 때문에 파라미터로 들�
 templates = Jinja2Templates(directory="templates/") # 클래스 변수(함수 담는 값) = Jinja 템플릿 html경로 설정
 
 # Toyprojects(한 메인파일에서 디렉토리 설정하는 방법을 모르겠음.)
-# http://localhost:8000/index_html
-@app.get("toyproject_fastapis/index_html") 
+# http://localhost:8000/toyproject_fastapis/index_html
+@app.get("/toyproject_fastapis/index_html") 
 async def index_html(request : Request): 
     return templates.TemplateResponse("toyproject_fastapis/index.html", {"request" : request})
 
-# http://localhost:8000/admin_html
-@app.get("toyproject_fastapis/admin_html") # 네트워크용 함수 호출
+# http://localhost:8000/toyproject_fastapis/admin_html
+@app.get("/toyproject_fastapis/admin_html") # 네트워크용 함수 호출
 async def admin_html(request : Request): # 파일 호출
     return templates.TemplateResponse("toyproject_fastapis/admin.html", {"request" : request}) # html 파일 자체가 호출됨.
 
-# http://localhost:8000/bakey_html
-@app.get("toyproject_fastapis/bakery_html") 
+# http://localhost:8000/toyproject_fastapis/bakery_html
+@app.get("/toyproject_fastapis/bakery_html") 
 async def bakery_html(request : Request): 
     return templates.TemplateResponse("toyproject_fastapis/bakery.html", {"request" : request})
 
