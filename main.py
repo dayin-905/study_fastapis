@@ -23,3 +23,5 @@ async def main_html(request : Request):
 async def main_html(request : Request): 
     return templates.TemplateResponse("index.html"   
                                       , {"request" : request})
+
+pass
