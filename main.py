@@ -75,6 +75,11 @@ async def user_list(request : Request):
     return templates.TemplateResponse( "users/list.html", context)
 # 리턴 값 위치와 get 호출 url를 같은 걸로 만들지 않음.
 
+# http://localhost:8000/quests/10_jina2
+@app.get("/quests/10_jina2")
+async def quest_10_jina2(request: Request):
+    return templates.TemplateResponse("quests/10_jina2.html", {"request" : request})
+
 # 정적 파일 설정
 from fastapi.staticfiles import StaticFiles
 app.mount("/images", StaticFiles(directory="resources/images"))
