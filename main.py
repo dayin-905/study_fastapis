@@ -43,6 +43,22 @@ async def main_html_context(request : Request): # 파일 호출
     return templates.TemplateResponse("main_context.html"   
                                       , context) # html 파일 자체가 호출됨.
 
+# http://localhost:8000/users/list
+@app.get("/users/list")
+async def user_list(request : Request):
+    users = [
+    {"name": "Alice", "age": 25, "city": "Seoul"},
+    {"name": "Bob", "age": 30, "city": "Busan"},
+    {"name": "Charlie", "age": 28, "city": "Daegu"}
+    ]
+
+    context = {
+        "request" : request
+        , "user_list" : users
+    }
+    return templates.TemplateResponse( "users/list.html", context)
+# 리턴 값 위치와 get 호출 url를 같은 걸로 만들지 않음.
+
 # 정적 파일 설정
 from fastapi.staticfiles import StaticFiles
 app.mount("/images", StaticFiles(directory="resources/images"))

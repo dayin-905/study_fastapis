@@ -8,7 +8,14 @@
 <body>
     <div>title : {{ title }}</div>
     <div>items : {{ items }}</div>
-    <div>user : {{ user }}</div> 
-    <div>My name is Lia</div>
+    <div>{{ items }}</div>
+    {% for item in items : %}
+    <div>{{ item }}</div>
+    {% endfor %}
+
+    <div>user dict : {{ user }}</div> 
+    <div>user name : {{ user.name }}</div> 
+    <div>user age : {{ user.age }}</div> 
+    <div>My name is Lia!</div>
 </body>
 </html>

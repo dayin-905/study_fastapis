@@ -7,7 +7,7 @@ from fastapi import Request # 외부 요청이기 때문에 파라미터로 들�
 templates = Jinja2Templates(directory="toyprojects_fastapis/") # 클래스 변수(함수 담는 값) = Jinja 템플릿 html경로 설정
 
 # http://localhost:8000/index_html
-@app.get("/") 
+@app.get("/index_html") 
 async def index_html(request : Request): 
     return templates.TemplateResponse("index.html", {"request" : request})
 
@@ -21,4 +21,3 @@ async def admin_html(request : Request): # 파일 호출
 async def bakery_html(request : Request): 
     return templates.TemplateResponse("bakery.html", {"request" : request})
                                       
-pass
