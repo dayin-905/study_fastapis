@@ -39,13 +39,14 @@
                 </div>
             </form>
         </section>
-
+        
+        {% if todo %}
         <article class="card container-fluid">
             <br/>
-            <h4>Todo ID: 1 </h4>
+            <h4>Todo ID: {{ todo[0] }}</h4>
             <p>
                 <strong>
-                    Item: Sample Todo Item
+                    Item: {{ todo[1] }}
                 </strong>
             </p>
         </article>
@@ -57,7 +58,7 @@
                 <ul class="list-group list-group-flush">
                     {% for todo in todos %}
                     <li class="list-group-item">
-                        {{ loop.index }}. <a href="/todo/1"> {{ todo[1] }} </a>
+                        {{ loop.index }}. <a href="/todos/{{ todo[0] }}"> {{ todo[1] }} </a>
                     </li>
                     {% endfor %}
                 </ul>
