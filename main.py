@@ -103,15 +103,16 @@ async def board_details_post_json(request : Request) : # request = Requset()
     # return {"title" : "Third Post", "content" : "This is the third post."}
     return {"title" : params['title'], "content" : params['content']}
 
-# http://localhost:8000/board/detail_post_html
-@app.get("/board/detail_post_html") # 네트워크용 함수 호출
-async def main_html(request : Request): # 파일 호출
-    return templates.TemplateResponse("board/detail.html", {"request" : request})
-
 # http://localhost:8000/board/detail_html/{detail_id}
 @app.get("/board/detail_html/{detail_id}") # 네트워크용 함수 호출
 async def main_html(request : Request, detail_id): # 파일 호출
     return templates.TemplateResponse("board/detail.html", {"request" : request})
+
+# http://localhost:8000/board/detail_html
+@app.get("/board/detail_html")
+async def main_html(request: Request):
+    return templates.TemplateResponse("boards/detail.html"
+                                      , {"request": request})
 
 # 정적 파일 설정
 from fastapi.staticfiles import StaticFiles

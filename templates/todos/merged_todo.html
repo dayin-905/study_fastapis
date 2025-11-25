@@ -55,15 +55,11 @@
             <br>
             <div class="card">
                 <ul class="list-group list-group-flush">
+                    {% for todo in todos %}
                     <li class="list-group-item">
-                        1. <a href="/todo/1"> First todo item </a>
+                        {{ loop.index }}. <a href="/todo/1"> {{ todo[1] }} </a>
                     </li>
-                    <li class="list-group-item">
-                        2. <a href="/todo/2"> Second todo item </a>
-                    </li>
-                    <li class="list-group-item">
-                        3. <a href="/todo/3"> Third todo item </a>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
         </section>
