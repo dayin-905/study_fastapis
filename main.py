@@ -79,6 +79,36 @@ async def user_list(request : Request):
 async def quest_10_jina2(request: Request):
     return templates.TemplateResponse("quests/10_jina2.html", {"request" : request})
 
+# http://localhost:8000/board/detail_json?title=Third%20Post&content=This%20is%20the%20third%20post.
+@app.get("/board/detail_json")
+async def board_details_json(request : Request) :
+    # request.method
+    # request.query_params
+    params = dict(request.query_params)
+
+    # return {"title" : "Third Post", "content" : "This is the third post."}
+    return {"title" : params['title'], "content" : params['content']}
+
+# http://localhost:8000/board/detail_json?title=Third%20Post&content=This%20is%20the%20third%20post.
+@app.post("/board/detail_post_json")
+async def board_details_post_json(request : Request) : # request = Requset()
+    # request.method
+    # request.query_params
+    params = dict(await request.form())
+
+    # return {"title" : "Third Post", "content" : "This is the third post."}
+    return {"title" : params['title'], "content" : params['content']}
+
+# http://localhost:8000/board/detail_post_html
+@app.get("/board/detail_post_html") # 네트워크용 함수 호출
+async def main_html(request : Request): # 파일 호출
+    return templates.TemplateResponse("board/detail.html", {"request" : request})
+
+# http://localhost:8000/board/detail_html/{detail_id}
+@app.get("/board/detail_html/{detail_id}") # 네트워크용 함수 호출
+async def main_html(request : Request, detail_id): # 파일 호출
+    return templates.TemplateResponse("board/detail.html", {"request" : request})
+
 # 정적 파일 설정
 from fastapi.staticfiles import StaticFiles
 # http://localhost:8000/images/temp.jpg
