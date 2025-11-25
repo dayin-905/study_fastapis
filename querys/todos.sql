@@ -4,11 +4,12 @@ CREATE TABLE IF NOT EXISTS todo (
         )
 
 INSERT INTO todo (item)
-VALUES ('Learn SQL') :
+VALUES ('Learn SQL'), ('Build a REST API'), ('Write Unit Tests.');
 
 SELECT id, item
-FROM todo :
+FROM todo;
 
 UPDATE todo
 SET item = 'Learn Advanced SQL'
 WHERE id = '3c8b05aa-9893-4e9f-be4b-3a969e7fc726'
+

@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 
-app = FastAPI() # app은 함수를 호출하는 클래스라는 뜻의 문장.
-#웹사이트 구성하는 여러가지 함수가 들어간 클래스
+app = FastAPI() # app은 함수를 호출하는 클래스라는 뜻의 문장, 웹사이트 구성하는 여러가지 함수가 들어간 클래스
+
+# todos 파일 읽을 수 있도록 파일 등록
+from routes.todos import router as todos_router
+app.include_router(todos_router, prefix="/todos")
+# main에서 서브로 분리할 수 있도록 as=* 와 같은 기호를 사용하여 추가한 것.
 
 # http://localhost:8000/
 @app.get("/") # URL의 /가 클라이언트 호출
