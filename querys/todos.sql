@@ -16,3 +16,6 @@ FROM todo
 UPDATE todo
 SET item = 'Learn Advanced SQL'
 WHERE id = '3c8b05aa-9893-4e9f-be4b-3a969e7fc726';
+
+delete from todo
+where id ='bac9d176-33e2-430f-adf8-3aa8a6f17bda';

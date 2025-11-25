@@ -1,42 +1,91 @@
 from fastapi import APIRouter, Request
-from fastapi.templating import Jinja2Templates # html형식과 변수를 합해주는 프레임 워크
+from fastapi.templating import Jinja2Templates
 from services.db import get_db_connection
-from psycopg2.extras import DictCursor # postgre 연결, cursor_factory
+from psycopg2.extras import DictCursor
 
 router = APIRouter()
 
-# 템플릿 호출
 templates = Jinja2Templates(directory="templates/")
+
+# delete 기능 추가
+# http://localhost:8000/todos/
+@router.get("/delete/{todo_id}")
+async def delete_todo_to_db(request : Request, todo_id: str):
+    conn = get_db_connection()
+    with conn.cursor() as cursor:
+        cursor.execute(f"""delete from todo
+                        where id ='{todo_id}';""")
+        conn.commit()
+
+        cursor.execute(f"""SELECT id, item FROM todo ;""")
+        todos = cursor.fetchall()
+    conn.close()
+    context = {
+        "request": request,
+        "todos" : todos
+    }
+    return templates.TemplateResponse("todos/merged_todo.html"
+                                      , context)   
+
+# 메소드가 다른 경로는 다른 url로 인식
+# http://localhost:8000/todos/
+@router.post("/")
+async def add_todo_to_db(request : Request):
+    params = await request.form()
+    conn = get_db_connection()
+    with conn.cursor() as cursor:
+        pass
+        cursor.execute(f"""INSERT INTO todo (item)
+                        VALUES ('{params['item']}');""")
+        conn.commit()
+
+        cursor.execute(f"""SELECT id, item FROM todo ;""")
+        todos = cursor.fetchall()
+    conn.close()
+    context = {
+        "request": request,
+        "todos" : todos
+    }
+    return templates.TemplateResponse("todos/merged_todo.html"
+                                      , context)    
 
 # http://localhost:8000/todos/
 @router.get("/{todo_id}")
-def get_todo(request : Request, todo_id : str):
-    conn = get_db_connection() # DB 연결 테스트 통로
+def get_todo(request: Request, todo_id: str):
+    conn = get_db_connection()  # DB 연결 테스트 용도
     with conn.cursor(cursor_factory=DictCursor) as cursor:
-        cursor.execute(f"""SELECT id, item
-                        FROM todo
+        # 특정 아이템
+        cursor.execute(f"""SELECT id, item 
+                        FROM todo 
                         WHERE id = '{todo_id}';""")
-        todo = cursor.fetchone() # 결과를 하나만 가져옴.
-    conn.close()
+        todo = cursor.fetchone()
+        # 전체 리스트
+        cursor.execute(f"""SELECT id, item 
+                        FROM todo;""")
+        todos = cursor.fetchall()
 
+    conn.close()
+        
     context = {
-        "request" : request,
-        "todo" : todo
+        "request": request,
+        "todo": todo,
+        "todos" : todos
     }
-    return templates.TemplateResponse("todos/merged_todo.html", context)
+    return templates.TemplateResponse("todos/merged_todo.html"
+                                      , context)
 
 # http://localhost:8000/todos/
 @router.get("/")
-def get_todos_html(request : Request) :
-    conn = get_db_connection() # DB 연결 테스트 통로
+def get_todos_html(request: Request):
+    conn = get_db_connection()  # DB 연결 테스트 용도
     with conn.cursor(cursor_factory=DictCursor) as cursor:
-        cursor.execute("""SELECT id, item FROM todo;""")
+        cursor.execute("""SELECT id, item 
+                        FROM todo;""")
         todos = cursor.fetchall()
     conn.close()
 
     context = {
-        "request" : request,
-        "todos" : todos # cursor_factory를 해줘서 dict 형식으로 바뀜
+        "request": request,
+        "todos": todos
     }
     return templates.TemplateResponse("todos/merged_todo.html", context)
-
