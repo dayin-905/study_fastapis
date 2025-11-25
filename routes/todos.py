@@ -6,7 +6,8 @@ router = APIRouter()
 # 템플릿 호출
 templates = Jinja2Templates(directory="templates/")
 
-# http://loaclhost:8000/todos/
+# http://localhost:8000/todos/
+@router.get("/")
 def get_todos_html(request : Request) :
     context = {
         "request" : request
